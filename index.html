@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="Yunfei Xie">
+<title>Registration Page</title>
+</head>
+<body onload="showTimeStamp()">
+<center>
+  <h1>Welcome!</h1>
+	<form name="form" action="formProcessor.html" method="GET">
+		Account Name<br/><br/><input type="text" name="name" placeholder="your name" required><br/><br/>
+		Display Name(Optional)<br/><br/><input type="text" name="display_name" placeholder="your display name"><br/><br/>
+		Email Address<br/><br/><input type="email" name="email" placeholder="a@b.co" required><br/><br/>
+		Phone Number<br/><br/><input type="tel" name="phone_number" placeholder="123-123-1234" pattern = "[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br/><br/>
+		Date of Birth<br/><br/><input type="date" name="birthday" required><br/><br/>
+		Zipcode<br/><br/><input type="text" name="zipcode" placeholder="your zipcode" pattern="[0-9]{5}" required><br/><br/>
+		Password<br/><br/><input type="password" name="password" required><br/><br/>
+		Password Confirmation<br/><br/><input type="password" name="password_confirmation" required><br/><br/>
+		<input type="hidden" name="timestamp" id="timestamp">
+		<input type="submit" name="submit" value="Submit" onclick="return validate(document.form)"/>
+		<input type="reset" name="clear" value="Clear">
+</center>
+</form>
+	<script>
+		function validate(form) {
+			if(validateName(form.name) === false) {
+				alert("Account name is not valid.");
+        return false;
+			}
+      if(validateAge(form.birthday) === false) {
+        alert("You need to be over 18 to register.");
+        return false;
+      }
+			if(validatePassword(form.password, form.password_confirmation) == false) {
+				alert("Password doesn't match.");
+        return false;
+			}
+			
+		}
+		function validateName(inputtxt) {  
+  			var rightform = /^[a-zA-Z0-9]+$/;
+        var num =   /^[0-9]+$/;
+        if (isNaN(inputtxt.value.substr(0,1)) == false) { //cant start with number
+          
+          return false;
+        }
+        if(inputtxt.value.match(num)){  //cant be all numbers
+            
+            return false;        
+        }
+  			if(inputtxt.value.match(rightform)){  
+       			
+            return true;        
+     		}  
+   			else{
+             		 
+       			return false;
+       		}  
+        }
+
+        function validateAge(inputtxt) {
+          var year = Number(inputtxt.value.substr(0,4)); 
+          var month = Number(inputtxt.value.substr(5,2))-1;//getmonth starts at 0
+          var day = Number(inputtxt.value.substr(8,2));
+          var today = new Date();
+          var age = today.getFullYear() - year;
+          if(today.getMonth() < month || (today.getMonth()===month && today.getDate()<day)){age--;}
+        if(age >= 18){ 
+            return true;        
+        }  
+        else{            
+            return false;
+          }  
+        }
+
+        function validatePassword(password, password_confirmation) {
+        	if(password.value != password_confirmation.value) {
+        		return false;
+        	}
+        	else{
+        		return true;
+        	}
+        }
+        
+        function showTimeStamp() {
+        	var timestamp = new Date().getTime() / 1000;
+        	document.getElementById("timestamp").value = timestamp;
+        }
+        
+	</script>
+	
+</body>
+
+</html>
