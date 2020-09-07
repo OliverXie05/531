@@ -60,7 +60,7 @@
 
         function validateAge(inputtxt) {
           var year = Number(inputtxt.value.substr(0,4)); 
-          var month = Number(inputtxt.value.substr(5,2))-1;//getmonth starts at 0
+          var month = Number(inputtxt.value.substr(5,2))-1;//getMonth starts at 0
           var day = Number(inputtxt.value.substr(8,2));
           var today = new Date();
           var age = today.getFullYear() - year;
