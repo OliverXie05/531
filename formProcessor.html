@@ -64,12 +64,12 @@
     var len;
 	len = password.length;
 	var i;
-    var hidden_password = ""
+    var hidden_password = "";
 	for (i = 0; i < len; i++) {
 		hidden_password += "*";
 	}
 	var date = new Date(timestamp*1000);
-	var month =	date.getMonth()+1;
+	var month =	date.getMonth()+1;//getMonth starts at 0
 	var day = date.getDate();
 	var year = date.getFullYear();
 	var hours =	date.getHours();
